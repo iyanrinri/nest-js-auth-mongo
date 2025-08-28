@@ -10,7 +10,7 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/project_name'),
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/project_name?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.6'),
     UsersModule,
     AuthModule,
   ],

@@ -2,16 +2,21 @@ import { Body, Controller, Get, Param, Post, Req, BadRequestException, NotFoundE
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
     constructor(private usersService: UsersService) {}
 
+    // @ApiBearerAuth()
+    // @UseGuards(AuthGuard)
     @Get('/')
     async findAll() {
         return this.usersService.findAll();
     }
 
+    // @ApiBearerAuth()
+    // @UseGuards(AuthGuard)
     @Post('/')
     async create(@Body() createUserDto: CreateUserDto) {
         const user = await this.usersService.create(createUserDto);
@@ -24,6 +29,7 @@ export class UsersController {
     }
 
 
+    @ApiBearerAuth()
     @Get('/:id')
     @UseGuards(AuthGuard)
     async findOne(@Param('id') id: string) {

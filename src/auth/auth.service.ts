@@ -29,4 +29,12 @@ export class AuthService {
         const payload = { sub: user.id, email: user.email, role: user.role, name: user.name };
         return await this.jwtService.signAsync(payload);
     }
+
+    async getUser(req: any) {
+        const user = await this.usersService.findOneById(req.user.id);
+        if (!user) {
+            throw new UnauthorizedException();
+        }
+        return user;
+    }
 }
