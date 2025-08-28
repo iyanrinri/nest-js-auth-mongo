@@ -8,6 +8,7 @@ async function bootstrap() {
     .setTitle('Nest Mongo Auth example')
     .setDescription('The Nest Mongo API description')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);

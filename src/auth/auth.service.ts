@@ -3,6 +3,7 @@ import { LoginDto } from './dto/login.dto';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { User } from 'src/users/schemas/user.schema';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +32,7 @@ export class AuthService {
     }
 
     async getUser(req: any) {
-        const user = await this.usersService.findOneById(req.user.id);
+        const user = await this.usersService.findOneById(req.user.sub);
         if (!user) {
             throw new UnauthorizedException();
         }
