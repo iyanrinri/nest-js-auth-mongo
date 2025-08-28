@@ -6,8 +6,6 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema()
 export class User {
-  @Prop()
-  id: string;
 
   @Prop({required: true})
   name: string;
@@ -23,3 +21,9 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+// Virtual property agar 'id' sama dengan '_id'
+UserSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+UserSchema.set('toJSON', { virtuals: true });
